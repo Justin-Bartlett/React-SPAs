@@ -1,0 +1,60 @@
+.page {
+  min-height: calc(100svh - 92px);
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.form {
+  width: min(100%, 30rem);
+  padding: 2rem;
+  background: rgba(17, 17, 17, 0.84);
+  color: white;
+  box-sizing: border-box;
+}
+
+.form h1 {
+  margin-top: 0;
+  font-size: 2.25rem;
+}
+
+.form label {
+  display: grid;
+  gap: 0.35rem;
+  margin: 1rem 0;
+  font-weight: 600;
+}
+
+.form input,
+.form button {
+  min-height: 2.75rem;
+  padding: 0.65rem 0.75rem;
+  box-sizing: border-box;
+  font: inherit;
+}
+
+.form input {
+  border: 1px solid #d5c5bd;
+}
+
+.form button {
+  width: 100%;
+  margin-top: 0.75rem;
+  border: 0;
+  background: #f4d35e;
+  color: #1a1a1a;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.error {
+  color: #ffb3a7;
+}
+
+.link {
+  display: block;
+  margin-top: 1.25rem;
+  color: #f4d35e;
+  text-align: center;
+}

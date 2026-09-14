@@ -1,0 +1,19 @@
+h1 {
+  color: white;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+}
+
+h2 {
+  color: white;
+}
+
+h1::first-letter {
+  text-transform: capitalize;
+}
+
+.heading {
+  background: #11111180;
+  padding: 0 16px 16px 16px;
+}

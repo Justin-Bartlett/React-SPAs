@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  background-color: #3f201e;
+  width: 100%;
+  max-width: 60rem;
+  box-sizing: border-box;
+  height: 92px;
+  align-items: center;
+}
+
+.logo {
+  width: 50%;
+  margin-left: 16px;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -6px;
+}
+
+.list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  font-size: 8px;
+}
+
+.list li {
+  height: 10px;
+}
+
+.list a {
+  text-decoration: none;
+  color: var(--color-primary-400);
+}
+
+.list a:hover,
+.list a.active {
+  color: var(--color-primary-800);
+  text-decoration: underline;
+}
+
+.list button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-primary-400);
+  font: inherit;
+  cursor: pointer;
+}
