@@ -1,6 +1,6 @@
 import express from "express"
 import { pool } from "../db.js"
-import { protect } from "../middleware/authMiddleware.js"
+import { protect, requireAdmin } from "../middleware/authMiddleware.js"
 
 const router = express.Router()
 
@@ -17,13 +17,11 @@ router.get("/", async (req, res) => {
 
     return res.json(result.rows)
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to fetch sessions", error: error.message })
+    return res.status(500).json({ message: "Failed to fetch sessions" })
   }
 })
 
-router.post("/", protect, async (req, res) => {
+router.post("/", protect, requireAdmin, async (req, res) => {
   const { classId, sessionDate, startTime, endTime, description } = req.body
 
   if (!classId || !sessionDate || !startTime) {
@@ -44,13 +42,11 @@ router.post("/", protect, async (req, res) => {
 
     return res.status(201).json(result.rows[0])
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to create session", error: error.message })
+    return res.status(500).json({ message: "Failed to create session" })
   }
 })
 
-router.put("/:id", protect, async (req, res) => {
+router.put("/:id", protect, requireAdmin, async (req, res) => {
   const { classId, sessionDate, startTime, endTime, description } = req.body
 
   try {
@@ -74,13 +70,11 @@ router.put("/:id", protect, async (req, res) => {
 
     return res.json(result.rows[0])
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to update session", error: error.message })
+    return res.status(500).json({ message: "Failed to update session" })
   }
 })
 
-router.delete("/:id", protect, async (req, res) => {
+router.delete("/:id", protect, requireAdmin, async (req, res) => {
   try {
     const result = await pool.query(
       "DELETE FROM class_sessions WHERE id = $1 RETURNING *",
@@ -93,9 +87,7 @@ router.delete("/:id", protect, async (req, res) => {
 
     return res.json({ message: "Session deleted successfully" })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to delete session", error: error.message })
+    return res.status(500).json({ message: "Failed to delete session" })
   }
 })
 

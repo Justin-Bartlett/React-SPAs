@@ -15,9 +15,26 @@ const createTables = async () => {
         email VARCHAR(255) UNIQUE NOT NULL,
         password_hash TEXT NOT NULL,
         full_name VARCHAR(255) NOT NULL,
+        role VARCHAR(20) NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'admin')),
         created_at TIMESTAMPTZ DEFAULT NOW()
       )
     `)
+
+    await client.query(`
+      ALTER TABLE users
+      ADD COLUMN IF NOT EXISTS role VARCHAR(20) NOT NULL DEFAULT 'user'
+    `)
+
+    await client
+      .query(
+        `
+      ALTER TABLE users
+      ADD CONSTRAINT users_role_check CHECK (role IN ('user', 'admin'))
+    `,
+      )
+      .catch((error) => {
+        if (error.code !== "42710") throw error
+      })
 
     await client.query(`
       CREATE TABLE IF NOT EXISTS classes (

@@ -4,13 +4,9 @@ export const apiRequest = async (path, options = {}) => {
   const headers = new Headers(options.headers || {})
   headers.set("Content-Type", "application/json")
 
-  const token = localStorage.getItem("danceStudioToken")
-  if (token) {
-    headers.set("Authorization", `Bearer ${token}`)
-  }
-
   const response = await fetch(`${API_URL}${path}`, {
     ...options,
+    credentials: "include",
     headers,
   })
   const data = await response.json().catch(() => ({}))

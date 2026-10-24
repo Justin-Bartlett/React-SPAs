@@ -1,6 +1,6 @@
 import express from "express"
 import { pool } from "../db.js"
-import { protect } from "../middleware/authMiddleware.js"
+import { protect, requireAdmin } from "../middleware/authMiddleware.js"
 
 const router = express.Router()
 
@@ -37,9 +37,7 @@ router.get("/", async (req, res) => {
 
     return res.json(formatted)
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to fetch classes", error: error.message })
+    return res.status(500).json({ message: "Failed to fetch classes" })
   }
 })
 
@@ -82,13 +80,11 @@ router.get("/:id", async (req, res) => {
       availableClasses: row.availableclasses || [],
     })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to fetch class", error: error.message })
+    return res.status(500).json({ message: "Failed to fetch class" })
   }
 })
 
-router.post("/", protect, async (req, res) => {
+router.post("/", protect, requireAdmin, async (req, res) => {
   const { title, slug, image, paragraph1, paragraph2, paragraph3 } = req.body
 
   if (!title || !slug) {
@@ -114,13 +110,11 @@ router.post("/", protect, async (req, res) => {
 
     return res.status(201).json(result.rows[0])
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to create class", error: error.message })
+    return res.status(500).json({ message: "Failed to create class" })
   }
 })
 
-router.put("/:id", protect, async (req, res) => {
+router.put("/:id", protect, requireAdmin, async (req, res) => {
   const { title, slug, image, paragraph1, paragraph2, paragraph3 } = req.body
 
   try {
@@ -145,13 +139,11 @@ router.put("/:id", protect, async (req, res) => {
 
     return res.json(result.rows[0])
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to update class", error: error.message })
+    return res.status(500).json({ message: "Failed to update class" })
   }
 })
 
-router.delete("/:id", protect, async (req, res) => {
+router.delete("/:id", protect, requireAdmin, async (req, res) => {
   try {
     const result = await pool.query(
       "DELETE FROM classes WHERE id = $1 RETURNING *",
@@ -164,9 +156,7 @@ router.delete("/:id", protect, async (req, res) => {
 
     return res.json({ message: "Class deleted successfully" })
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to delete class", error: error.message })
+    return res.status(500).json({ message: "Failed to delete class" })
   }
 })
 

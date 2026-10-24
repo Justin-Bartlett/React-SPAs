@@ -4,7 +4,8 @@ import { useAuth } from "../context/AuthContext"
 import classes from "./MainNavigation.module.css"
 
 const MainNavigation = () => {
-  const { isAuthenticated, logout } = useAuth()
+  const { isAuthenticated, user, logout } = useAuth()
+  const isAdmin = user?.role === "admin"
 
   return (
     <header className={classes.header}>
@@ -23,7 +24,7 @@ const MainNavigation = () => {
             </NavLink>
           </li>
           <li>
-            {isAuthenticated ? (
+            {isAdmin ? (
               <NavLink
                 className={({ isActive }) =>
                   isActive ? classes.active : undefined

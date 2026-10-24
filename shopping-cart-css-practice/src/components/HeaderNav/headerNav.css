@@ -1,0 +1,21 @@
+.header-nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5em;
+  margin: 0.6em 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header-nav ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  font-size: 0.9em;
+}
+
+.header-nav ul button {
+  border: none;
+  background-color: inherit;
+}

@@ -1,20 +1,22 @@
-import { createContext, useContext, useMemo, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { apiRequest } from "../lib/api"
 
 const AuthContext = createContext(null)
 
-const storedUser = localStorage.getItem("danceStudioUser")
-
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : null)
-  const [token, setToken] = useState(localStorage.getItem("danceStudioToken"))
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const authenticate = (data) => {
-    localStorage.setItem("danceStudioToken", data.token)
-    localStorage.setItem("danceStudioUser", JSON.stringify(data.user))
-    setToken(data.token)
     setUser(data.user)
   }
+
+  useEffect(() => {
+    apiRequest("/auth/me")
+      .then(authenticate)
+      .catch(() => setUser(null))
+      .finally(() => setIsLoading(false))
+  }, [])
 
   const login = async (credentials) => {
     const data = await apiRequest("/auth/login", {
@@ -32,24 +34,22 @@ export const AuthProvider = ({ children }) => {
     authenticate(data)
   }
 
-  const logout = () => {
-    localStorage.removeItem("danceStudioToken")
-    localStorage.removeItem("danceStudioUser")
-    setToken(null)
-    setUser(null)
+  const logout = async () => {
+    try {
+      await apiRequest("/auth/logout", { method: "POST" })
+    } finally {
+      setUser(null)
+    }
   }
 
-  const value = useMemo(
-    () => ({
-      user,
-      token,
-      isAuthenticated: Boolean(token),
-      login,
-      register,
-      logout,
-    }),
-    [token, user],
-  )
+  const value = {
+    user,
+    isAuthenticated: Boolean(user),
+    isLoading,
+    login,
+    register,
+    logout,
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

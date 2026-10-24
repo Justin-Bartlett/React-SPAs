@@ -114,16 +114,26 @@ const seedData = async () => {
   const client = await pool.connect()
 
   try {
-    const passwordHash = await bcrypt.hash("password123", 10)
+    const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase()
+    const adminPassword = process.env.ADMIN_PASSWORD
 
-    await client.query(
-      `
-      INSERT INTO users (email, password_hash, full_name)
-      VALUES ($1, $2, $3)
-      ON CONFLICT (email) DO NOTHING
-    `,
-      ["admin@dance-studio.com", passwordHash, "Studio Admin"],
-    )
+    if (adminEmail && adminPassword) {
+      const passwordHash = await bcrypt.hash(adminPassword, 12)
+      await client.query(
+        `
+        INSERT INTO users (email, password_hash, full_name, role)
+        VALUES ($1, $2, $3, 'admin')
+        ON CONFLICT (email) DO UPDATE SET
+          password_hash = EXCLUDED.password_hash,
+          role = 'admin'
+      `,
+        [adminEmail, passwordHash, "Studio Admin"],
+      )
+    } else {
+      console.warn(
+        "Skipping admin seed: ADMIN_EMAIL and ADMIN_PASSWORD are required",
+      )
+    }
 
     for (const classItem of classes) {
       const result = await client.query(

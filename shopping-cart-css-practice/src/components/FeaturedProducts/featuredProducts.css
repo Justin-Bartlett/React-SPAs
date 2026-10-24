@@ -1,0 +1,17 @@
+.featured-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4em 1em;
+}
+
+.featured-list h2 {
+  font-size: 1.2em;
+}
+
+.featured-list button {
+  background-color: inherit;
+  color: rgb(106, 159, 211);
+  border: none;
+  font-weight: bold;
+}

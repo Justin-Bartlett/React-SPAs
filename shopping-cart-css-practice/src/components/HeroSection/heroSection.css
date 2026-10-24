@@ -1,0 +1,75 @@
+.hero {
+  background: #b2ced9;
+  background: linear-gradient(
+    90deg,
+    rgba(178, 206, 217, 1) 0%,
+    rgba(240, 225, 216, 1) 100%
+  );
+}
+
+.hero-img {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 20em;
+  background-image: url("../../assets/hero.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 0.5em 0.8em;
+  border-radius: 8px;
+}
+
+.left-arrow-nav,
+.right-arrow-nav {
+  background: rgba(255, 255, 255, 0.575);
+  color: rgba(0, 0, 0, 0.417);
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  border: 0;
+  padding-left: 6px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.right-arrow-nav {
+  margin-left: auto;
+}
+
+.cta {
+  width: 43%;
+}
+
+.new-arrivals {
+  font-size: 0.9em;
+  font-weight: 700;
+  margin: 0.2em 0;
+}
+
+.latest-gadgets {
+  font-size: 2em;
+  font-weight: 1000;
+  margin: 0.2em 0;
+}
+
+.tagline {
+  font-size: 0.9em;
+  font-weight: 500;
+  margin: 0.5em 0;
+}
+
+.shop-now {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6em 1em;
+}
+
+@media (max-width: 640px) {
+  .hero-img {
+    background-size: 50% auto;
+  }
+}

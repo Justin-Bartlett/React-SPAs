@@ -1,0 +1,10 @@
+body {
+  background-color: black;
+  padding: 0.2em;
+  font-family: "Inter", sans-serif;
+}
+
+#center {
+  background-color: rgb(244, 244, 244);
+  border-radius: 0.8em;
+}

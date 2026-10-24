@@ -21,7 +21,7 @@ const formatSessionDate = (value) =>
   }).format(new Date(value.includes("T") ? value : `${value}T12:00:00`))
 
 const AdminPage = () => {
-  const { isAuthenticated, user, logout } = useAuth()
+  const { isAuthenticated, isLoading, user, logout } = useAuth()
   const navigate = useNavigate()
   const [classes, setClasses] = useState([])
   const [sessions, setSessions] = useState([])
@@ -44,13 +44,15 @@ const AdminPage = () => {
   }
 
   useEffect(() => {
+    if (isLoading) return
+
     if (!isAuthenticated) {
       navigate("/login", { replace: true, state: { from: "/admin" } })
       return
     }
 
     loadAdminData().catch((requestError) => setError(requestError.message))
-  }, [isAuthenticated, navigate])
+  }, [isAuthenticated, isLoading, navigate])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -78,7 +80,7 @@ const AdminPage = () => {
     navigate("/")
   }
 
-  if (!isAuthenticated) return null
+  if (isLoading || !isAuthenticated) return null
 
   return (
     <main className={styles.page}>

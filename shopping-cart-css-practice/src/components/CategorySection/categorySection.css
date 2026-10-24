@@ -1,0 +1,83 @@
+.main-nav span {
+  display: none;
+  font-size: small;
+  font-weight: bold;
+}
+
+.all-categories-btn {
+  border: none;
+  background-color: inherit;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.hamburger-icon {
+  display: none !important;
+}
+
+.category-nav {
+  display: flex;
+  width: 100%;
+  font-size: 1.3em;
+}
+
+.category-nav ul {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  width: 100%;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.category-nav ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  font-size: 0.85em;
+}
+
+.category-nav ul li .category-image-circle {
+  display: flex;
+  width: 2.7em;
+  height: 2.7em;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(228, 228, 228);
+  border-radius: 50%;
+}
+
+.category-nav ul li .category-image-circle img {
+  width: 2.1em;
+  height: 2.1em;
+  object-fit: contain;
+  background: none;
+  border-radius: 0;
+}
+
+.category-nav ul li button {
+  border: none;
+  background-color: inherit;
+  font-size: 0.85em;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 440px) {
+  .main-nav span {
+    display: block;
+  }
+  .category-nav ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .hamburger-icon {
+    display: block !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .category-nav ul li button {
+    font-size: 0.6em;
+  }
+}

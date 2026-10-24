@@ -10,11 +10,17 @@
     "db:init": "node src/db/init.js",
     "db:seed": "node src/db/seed.js"
   },
+  "overrides": {
+    "qs": "6.16.0"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "express-rate-limit": "^8.3.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.17.0"
   }

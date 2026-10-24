@@ -20,5 +20,11 @@ export default defineConfig([
     rules: {
       "no-unused-vars": "off",
     },
+    env: {
+      node: true,
+      commonjs: true,
+      browser: true,
+      es6: true,
+    },
   },
 ])
